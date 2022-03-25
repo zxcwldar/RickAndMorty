@@ -1,4 +1,5 @@
 package com.zxcwldar.rickandmorty.presentation.ui.fragments.episode
+
 import com.zxcwldar.rickandmorty.base.BaseViewModel
 import com.zxcwldar.rickandmorty.data.repositories.EpisodesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,4 +1,5 @@
 package com.zxcwldar.rickandmorty.di
+
 import com.zxcwldar.rickandmorty.data.remote.RetrofitClient
 import dagger.Module
 import dagger.Provides

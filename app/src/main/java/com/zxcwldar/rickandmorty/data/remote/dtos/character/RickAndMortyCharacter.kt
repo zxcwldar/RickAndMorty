@@ -22,4 +22,5 @@ data class RickAndMortyCharacter(
     val location: Location,
     @SerializedName("image")
     val image: String,
-)
+) {
+}

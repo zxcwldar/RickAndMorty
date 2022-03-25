@@ -2,12 +2,15 @@ package com.zxcwldar.rickandmorty.presentation.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmorty.databinding.ItemEpisodesBinding
 import com.zxcwldar.rickandmorty.data.remote.dtos.episode.RickAndMortyEpisode
 
-class EpisodesAdapter : RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>() {
-    private var list: List<RickAndMortyEpisode> = ArrayList()
+class EpisodesAdapter :
+    PagingDataAdapter<RickAndMortyEpisode, EpisodesAdapter.EpisodeViewHolder>(EpisodesComparator) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpisodeViewHolder =
         EpisodeViewHolder(
@@ -17,19 +20,6 @@ class EpisodesAdapter : RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>(
                 false
             )
         )
-
-
-    override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
-        holder.onBind(list[position])
-    }
-
-    override fun getItemCount(): Int =
-        list.size
-
-    fun setList(list: List<RickAndMortyEpisode>) {
-        this.list = list
-        notifyDataSetChanged()
-    }
 
     inner class EpisodeViewHolder(private val binding: ItemEpisodesBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -41,6 +31,30 @@ class EpisodesAdapter : RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>(
 
 
         }
+
+    }
+
+    override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
+        getItem(position)?.let { holder.onBind(it) }
+
+    }
+
+}
+
+object EpisodesComparator : DiffUtil.ItemCallback<RickAndMortyEpisode>() {
+    override fun areItemsTheSame(
+        oldItem: RickAndMortyEpisode,
+        newItem: RickAndMortyEpisode
+    ): Boolean {
+        return oldItem.id == newItem.id
+
+    }
+
+    override fun areContentsTheSame(
+        oldItem: RickAndMortyEpisode,
+        newItem: RickAndMortyEpisode
+    ): Boolean {
+        return oldItem == newItem
 
     }
 
